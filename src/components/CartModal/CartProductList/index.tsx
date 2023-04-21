@@ -1,25 +1,51 @@
-import CartProductCard from './CartProductCard';
+import CartProductCard from "./CartProductCard";
 
-import { StyledCartProductList } from './style';
-import { StyledButton } from '../../../styles/button';
-import { StyledParagraph } from '../../../styles/typography';
+import { StyledCartProductList } from "./style";
+import { StyledButton } from "../../../styles/button";
+import { StyledParagraph } from "../../../styles/typography";
+import { useContext } from "react";
+import { CartContext } from "../../../providers/CartContext";
 
-const CartProductList = () => (
-  <StyledCartProductList>
-    <ul>
-      <CartProductCard />
-    </ul>
+const CartProductList = () => {
+  const { productsCart, removeProductToCart, setProductsCart } =
+    useContext(CartContext);
 
-    <div className='totalBox'>
-      <StyledParagraph>
-        <strong>Total</strong>
-      </StyledParagraph>
-      <StyledParagraph className='total'>R$ 14,00</StyledParagraph>
-    </div>
-    <StyledButton $buttonSize='default' $buttonStyle='gray'>
-      Remover todos
-    </StyledButton>
-  </StyledCartProductList>
-);
+  const amount = productsCart.reduce((previousValeu, currentValue) => {
+    return previousValeu + Number(currentValue.price);
+  }, 0);
+
+  console.log(productsCart);
+  return (
+    <StyledCartProductList>
+      <ul>
+        {productsCart.map((product) => {
+          return (
+            <CartProductCard
+              key={product.id}
+              product={product}
+              removeProductToCart={removeProductToCart}
+            />
+          );
+        })}
+      </ul>
+
+      <div className="totalBox">
+        <StyledParagraph>
+          <strong>Total</strong>
+        </StyledParagraph>
+        <StyledParagraph className="total">
+          R$ {amount.toFixed(2)}
+        </StyledParagraph>
+      </div>
+      <StyledButton
+        $buttonSize="default"
+        $buttonStyle="gray"
+        onClick={() => setProductsCart([])}
+      >
+        Remover todos
+      </StyledButton>
+    </StyledCartProductList>
+  );
+};
 
 export default CartProductList;
