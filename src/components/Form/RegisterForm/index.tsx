@@ -2,8 +2,8 @@ import Input from "../Input";
 import { StyledButton } from "../../../styles/button";
 import { StyledForm } from "../../../styles/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { schema } from "../../../pages/RegisterPage/validator";
 import { UserContext } from "../../../providers/UserContext";
 
@@ -15,6 +15,7 @@ export interface IRegisterFormData {
 }
 
 const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -23,8 +24,8 @@ const RegisterForm = () => {
 
   const { handleRegister } = useContext(UserContext);
 
-  const submit = (data: IRegisterFormData) => {
-    handleRegister(data);
+  const submit: SubmitHandler<IRegisterFormData> = (data) => {
+    handleRegister(data, setLoading);
   };
 
   return (
@@ -58,7 +59,7 @@ const RegisterForm = () => {
         error={errors?.confirmPassword?.message}
       />
       <StyledButton $buttonSize="default" $buttonStyle="gray">
-        Cadastrar
+        {loading ? "Cadastrando" : "Cadastrar"}
       </StyledButton>
     </StyledForm>
   );

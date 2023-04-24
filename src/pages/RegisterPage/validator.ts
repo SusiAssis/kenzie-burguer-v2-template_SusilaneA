@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const schema = z
   .object({
-    name: z.string().nonempty("O nome é Obrigatório"),
+    name: z.string().nonempty("O nome é obrigatório"),
     email: z
       .string()
       .min(1, "O e-mail é obrigatório")

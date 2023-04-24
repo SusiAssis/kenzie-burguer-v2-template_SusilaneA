@@ -4,8 +4,7 @@ import Header from "../../components/Header";
 import ProductList from "../../components/ProductList";
 
 import { StyledContainer } from "../../styles/grid";
-import { useContext, useState } from "react";
-import { CartContext } from "../../providers/CartContext";
+import { useState } from "react";
 
 const ShopPage = () => {
   const [openModal, setOpenModal] = useState(false);

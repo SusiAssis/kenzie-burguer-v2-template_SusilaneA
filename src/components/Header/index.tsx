@@ -1,12 +1,14 @@
 import { MdShoppingCart, MdLogout } from "react-icons/md";
-
 import SearchForm from "./SearchForm";
 import { StyledHeader } from "./style";
 import LogoKenzieBurguer from "../../assets/LogoKenzieBurguer.svg";
-
 import { StyledContainer } from "../../styles/grid";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext";
 
 const Header = ({ ModalOpen }) => {
+  const { logout } = useContext(UserContext);
+
   return (
     <StyledHeader>
       <StyledContainer containerWidth={1300}>
@@ -22,7 +24,7 @@ const Header = ({ ModalOpen }) => {
               <button type="button" onClick={() => ModalOpen()}>
                 <MdShoppingCart size={28} />
               </button>
-              <button type="button">
+              <button type="button" onClick={() => logout()}>
                 <MdLogout size={28} />
               </button>
             </div>

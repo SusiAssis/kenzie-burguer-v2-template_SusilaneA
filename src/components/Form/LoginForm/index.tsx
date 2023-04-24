@@ -1,10 +1,10 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { StyledButton } from "../../../styles/button";
 import { StyledForm } from "../../../styles/form";
 import Input from "../Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaLogin } from "./validator";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../../providers/UserContext";
 
 export interface ILoginFormData {
@@ -13,6 +13,7 @@ export interface ILoginFormData {
 }
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -21,8 +22,8 @@ const LoginForm = () => {
 
   const { handleLogin } = useContext(UserContext);
 
-  const submit = (data: ILoginFormData) => {
-    handleLogin(data);
+  const submit: SubmitHandler<ILoginFormData> = (data) => {
+    handleLogin(data, setLoading);
   };
 
   return (
@@ -37,12 +38,12 @@ const LoginForm = () => {
       <Input
         id="senha"
         {...register("password")}
-        error={errors?.email?.message}
+        error={errors?.password?.message}
         label="Password"
         type="password"
       />
       <StyledButton $buttonSize="default" $buttonStyle="green">
-        Entrar
+        {loading ? "Entrando..." : "Entrar"}
       </StyledButton>
     </StyledForm>
   );

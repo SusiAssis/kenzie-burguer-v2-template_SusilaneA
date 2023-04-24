@@ -1,20 +1,39 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
-export const CartContext = createContext({});
+interface ICartProviderProps {
+  children: React.ReactNode;
+}
 
-export const CartProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const [productsCart, setProductsCart] = useState([]);
+interface ICartContext {
+  products: IProducts[];
+  addProductToCart: (productCart: IProducts) => void;
+  productsCart: IProducts[];
+  setProductsCart: React.Dispatch<React.SetStateAction<IProducts[]>>;
+  removeProductToCart: (productId: number) => void;
+}
+
+export interface IProducts {
+  category: string;
+  id: number;
+  img: string;
+  name: string;
+  price: number;
+}
+
+export const CartContext = createContext({} as ICartContext);
+
+export const CartProvider = ({ children }: ICartProviderProps) => {
+  const [products, setProducts] = useState<IProducts[]>([]);
+  const [productsCart, setProductsCart] = useState<IProducts[]>([]);
   const [filter, setFilter] = useState("");
-  const token = localStorage.getItem("@TOKEN");
-
-  console.log(products);
+  let token = localStorage.getItem("@TOKEN");
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await api.get(`/products`, {
+        const response = await api.get<IProducts[]>(`/products`, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
           },
@@ -37,23 +56,21 @@ export const CartProvider = ({ children }) => {
           .includes(filter.trim().toLowerCase()) ||
         product.name.toLowerCase().trim().includes(filter.trim().toLowerCase())
     );
-
-    setCategoriesList(newListFilter);
   };
 
-  const addProductToCart = (productCart) => {
-    if (!productsCart.some((product) => product.id === productCart.id)) {
+  const addProductToCart = (productCart: IProducts) => {
+    if (
+      !productsCart.some((product: IProducts) => product.id === productCart.id)
+    ) {
       const newListCart = [...productsCart, productCart];
       setProductsCart(newListCart);
-      //toast.success("Produto adicionado!")
-      console.log("produto adicionado");
+      toast.success("Produto adicionado!");
     } else {
-      //toast.error("Este item já está adicionado")
-      console.log("produto já esta adicionado");
+      toast.error("Este item já está adicionado");
     }
   };
 
-  const removeProductToCart = (productId) => {
+  const removeProductToCart = (productId: number) => {
     const newListCart = productsCart.filter(
       (product) => product.id !== productId
     );

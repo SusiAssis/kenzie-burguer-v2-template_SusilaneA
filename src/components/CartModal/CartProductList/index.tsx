@@ -4,7 +4,7 @@ import { StyledCartProductList } from "./style";
 import { StyledButton } from "../../../styles/button";
 import { StyledParagraph } from "../../../styles/typography";
 import { useContext } from "react";
-import { CartContext } from "../../../providers/CartContext";
+import { CartContext, IProducts } from "../../../providers/CartContext";
 
 const CartProductList = () => {
   const { productsCart, removeProductToCart, setProductsCart } =
@@ -18,7 +18,7 @@ const CartProductList = () => {
   return (
     <StyledCartProductList>
       <ul>
-        {productsCart.map((product) => {
+        {productsCart.map((product: IProducts) => {
           return (
             <CartProductCard
               key={product.id}
