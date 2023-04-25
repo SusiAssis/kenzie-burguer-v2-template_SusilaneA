@@ -34,28 +34,28 @@ const RegisterForm = () => {
         type="text"
         id="name"
         {...register("name")}
-        label={"name"}
+        label={"Nome"}
         error={errors?.name?.message}
       />
       <Input
         type="email"
         id="email"
         {...register("email")}
-        label={"email"}
+        label={"Email"}
         error={errors?.email?.message}
       />
       <Input
         type="password"
         id="password"
         {...register("password")}
-        label={"password"}
+        label={"Senha"}
         error={errors?.password?.message}
       />
       <Input
         type="password"
         id="confirmPassword"
         {...register("confirmPassword")}
-        label={"confirmPassword"}
+        label={"Confirmar Senha"}
         error={errors?.confirmPassword?.message}
       />
       <StyledButton $buttonSize="default" $buttonStyle="gray">

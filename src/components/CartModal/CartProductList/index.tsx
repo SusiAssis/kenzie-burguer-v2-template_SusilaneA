@@ -14,7 +14,6 @@ const CartProductList = () => {
     return previousValeu + Number(currentValue.price);
   }, 0);
 
-  console.log(productsCart);
   return (
     <StyledCartProductList>
       <ul>

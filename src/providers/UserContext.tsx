@@ -45,8 +45,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("@TOKEN");
-    const userId = localStorage.getItem("@USERID");
+    const token: string = localStorage.getItem("@TOKEN") || "";
+    const userId: string = localStorage.getItem("@USERID") || "";
 
     const userAutoLogin = async () => {
       try {
@@ -58,7 +58,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         setUser(response.data);
         navigate("/shop");
       } catch (error) {
-        console.log(error);
         localStorage.removeItem("@TOKEN");
         localStorage.removeItem("@USERID");
       }
@@ -102,7 +101,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       toast.success("Conta criada com sucesso!");
       navigate("/");
     } catch (error) {
-      toast.error("Algo deu errado, por favor revisar os dados");
+      toast.error("E-mail já existe");
     } finally {
       setLoading(false);
     }

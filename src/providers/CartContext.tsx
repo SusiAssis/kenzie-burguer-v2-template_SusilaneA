@@ -28,7 +28,7 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
   const [products, setProducts] = useState<IProducts[]>([]);
   const [productsCart, setProductsCart] = useState<IProducts[]>([]);
   const [filter, setFilter] = useState("");
-  let token = localStorage.getItem("@TOKEN");
+  let token: string = localStorage.getItem("@TOKEN") || "";
 
   useEffect(() => {
     const getProducts = async () => {
@@ -40,9 +40,7 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
         });
 
         setProducts(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     getProducts();
   }, []);

@@ -5,8 +5,9 @@ import LogoKenzieBurguer from "../../assets/LogoKenzieBurguer.svg";
 import { StyledContainer } from "../../styles/grid";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserContext";
+import { Imodal } from "../CartModal/index";
 
-const Header = ({ ModalOpen }) => {
+const Header = ({ ModalOpen }: Imodal) => {
   const { logout } = useContext(UserContext);
 
   return (

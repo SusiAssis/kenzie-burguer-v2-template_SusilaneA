@@ -3,10 +3,14 @@ import CartProductList from "./CartProductList";
 
 import { StyledCartModalBox } from "./style";
 import { StyledParagraph, StyledTitle } from "../../styles/typography";
-import { useContext } from "react";
+import React, { FunctionComponentElement, useContext } from "react";
 import { CartContext } from "../../providers/CartContext";
 
-const CartModal = ({ ModalOpen }) => {
+export interface Imodal {
+  ModalOpen: () => void;
+}
+
+const CartModal = ({ ModalOpen }: Imodal) => {
   const { productsCart } = useContext(CartContext);
   return (
     <StyledCartModalBox>

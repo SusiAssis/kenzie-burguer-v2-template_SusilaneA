@@ -39,7 +39,7 @@ const LoginForm = () => {
         id="senha"
         {...register("password")}
         error={errors?.password?.message}
-        label="Password"
+        label="Senha"
         type="password"
       />
       <StyledButton $buttonSize="default" $buttonStyle="green">

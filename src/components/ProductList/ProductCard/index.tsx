@@ -1,8 +1,14 @@
 import { StyledProductCard } from "./style";
 import { StyledButton } from "../../../styles/button";
 import { StyledParagraph, StyledTitle } from "../../../styles/typography";
+import { IProducts } from "../../../providers/CartContext";
 
-const ProductCard = ({ product, addProductToCart }) => {
+export interface IProductCart {
+  product: IProducts;
+  addProductToCart: (productCart: IProducts) => void;
+}
+
+const ProductCard = ({ product, addProductToCart }: IProductCart) => {
   return (
     <StyledProductCard>
       <div className="imageBox">
@@ -15,7 +21,9 @@ const ProductCard = ({ product, addProductToCart }) => {
         <StyledParagraph className="category">
           {product.category}
         </StyledParagraph>
-        <StyledParagraph className="price">{product.price}</StyledParagraph>
+        <StyledParagraph className="price">
+          R$ {product.price.toFixed(2)}
+        </StyledParagraph>
         <StyledButton
           $buttonSize="medium"
           $buttonStyle="green"

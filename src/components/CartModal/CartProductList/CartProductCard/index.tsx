@@ -2,8 +2,14 @@ import { MdDelete } from "react-icons/md";
 
 import { StyledCartProductCard } from "./style";
 import { StyledTitle } from "../../../../styles/typography";
+import { IProducts } from "../../../../providers/CartContext";
 
-const CartProductCard = ({ product, removeProductToCart }) => (
+export interface ICartProduct {
+  product: IProducts;
+  removeProductToCart: (productId: number) => void;
+}
+
+const CartProductCard = ({ product, removeProductToCart }: ICartProduct) => (
   <StyledCartProductCard>
     <div className="imageBox">
       <img src={product.img} alt={product.name} />
